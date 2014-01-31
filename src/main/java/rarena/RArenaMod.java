@@ -1,10 +1,9 @@
 package rarena;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.EntityEggInfo;
-import net.minecraft.entity.EntityList;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatMessageComponent;
-import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -13,14 +12,14 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
-import cpw.mods.fml.common.registry.EntityRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 
 @Mod(modid = "RArena", name = "RArena", version = "0.1")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 
 public class RArenaMod {
+	
+	//Block
+	public static Block BlockArenaSpawner;
 
 	@Instance("RArenaMod")
 	public static RArenaMod instance;
@@ -39,6 +38,9 @@ public class RArenaMod {
 	{
 		//renderers
 		proxy.registerRenderers();	
+		
+		//Block
+		BlockArenaSpawner = (new Block(22, Material.rock)).setBlockUnbreakable().setResistance(6000000.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("blockArenaSpawner").setCreativeTab(CreativeTabs.tabBlock).setTextureName("lapis_block");
 	}
 
 	@EventHandler
