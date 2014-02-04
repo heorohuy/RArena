@@ -28,13 +28,14 @@ public class RArenaMod {
 	public static CommonProxy proxy;
 
 	@EventHandler
-	public void PreInit(FMLPreInitializationEvent event)
+	public void onPreInitialization(FMLPreInitializationEvent event)
 	{
-
+		EventHookContainer hooks = new EventHookContainer();
+		MinecraftForge.EVENT_BUS.register(hooks);
 	}
 
 	@EventHandler
-	public void load(FMLInitializationEvent event)
+	public void onInitialization(FMLInitializationEvent event)
 	{
 		//renderers
 		proxy.registerRenderers();	
@@ -44,7 +45,7 @@ public class RArenaMod {
 	}
 
 	@EventHandler
-	public void postInit(FMLPostInitializationEvent event)
+	public void onPostInitialization(FMLPostInitializationEvent event)
 	{
 
 	}
