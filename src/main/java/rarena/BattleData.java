@@ -3,16 +3,31 @@ package rarena;
 import java.util.ArrayList;
 
 import net.minecraft.entity.monster.EntityMob;
+import rarena.ticking.IScheduledCallback;
 
 public class BattleData
 {
+	private static class StartWaveCallback implements IScheduledCallback
+	{
+		private BattleData battle;
+		
+		public StartWaveCallback(BattleData battle)
+		{
+			this.battle = battle;
+		}
+		
+		public void invoke()
+		{
+			battle.startWave();
+		}
+	}
+	
 	private final ArenaData owner;
-
-	private int waveCount;
-	private int killCount;
+	private int waveCount;	// The number of waves completed
+	private int killCount;	// The total number of mobs killed
 	private ArrayList<Integer> monsters;
 	
-	private BattleData(ArenaData owner)
+	public BattleData(ArenaData owner)
 	{
 		this.owner = owner;
 		this.monsters = new ArrayList<Integer>();
@@ -27,15 +42,28 @@ public class BattleData
 			killCount++;
 			if (monsters.isEmpty())
 			{
-				onWaveVictory();
+				endWave();
 			}
 			return true;
 		}
 		return false;
 	}
 	
-	private void onWaveVictory()
+	public void start()
+	{
+		startWave();
+	}
+	
+	private void startWave()
 	{
 		
+	}
+	
+	private void endWave()
+	{
+		// Schedule the start of the next wave
+		
+		// TODO: We should send a message to all participants or to all players
+		// indicating that the wave has ended
 	}
 }

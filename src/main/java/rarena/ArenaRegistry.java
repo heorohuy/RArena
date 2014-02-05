@@ -14,11 +14,27 @@ public class ArenaRegistry {
 	{
 		for (ArenaData arena : arenas.values())
 		{
-			if (arena.IsBattleInProgress())
+			if (arena.isBattleInProgress())
 			{
 				arena.getBattleData().onMonsterDeath(monster);
 			}
 		}
+	}
+	
+	public static void reset()
+	{
+		arenas.clear();
+	}
+	
+	public static ArenaData createArena(String name)
+	{
+		ArenaData arena = arenas.get(name);
+		if (arena == null)
+		{
+			arena = new ArenaData(name);
+			arenas.put(name, arena);
+		}
+		return arena;
 	}
 
 }
