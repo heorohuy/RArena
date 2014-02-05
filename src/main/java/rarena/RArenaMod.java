@@ -58,13 +58,11 @@ public class RArenaMod {
 	@EventHandler
 	public void onPostInitialization(FMLPostInitializationEvent event)
 	{
-
+		
 	}
 
 	public static void sendChat(EntityPlayer player, String message)
 	{
-		ChatMessageComponent cmp = new ChatMessageComponent();
-		cmp.addText(message);
-		player.sendChatToPlayer(cmp);
+		player.sendChatToPlayer(ChatMessageComponent.createFromText(message));
 	}
 }
