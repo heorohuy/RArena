@@ -5,6 +5,7 @@ import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import rarena.tileentities.TileEntityArenaSpawner;
 
 public class BlockArenaSpawner extends Block implements ITileEntityProvider{
 
@@ -16,7 +17,7 @@ public class BlockArenaSpawner extends Block implements ITileEntityProvider{
 	@Override
 	public TileEntity createNewTileEntity(World world) {
 		// TODO Auto-generated method stub
-		return null;
+		return new TileEntityArenaSpawner();
 	}
 	
 	
