@@ -5,21 +5,27 @@ import net.minecraft.tileentity.TileEntity;
 import rarena.ArenaData;
 import rarena.ArenaRegistry;
 
-public class TileEntityArenaStarter extends TileEntity{
+public class TileEntityArenaStarter extends TileEntity
+{
 	
 	private String arenaName = "testy";
-	
-	public void writeToNBT(NBTTagCompound NBTTag){
-		super.writeToNBT(NBTTag);
-		NBTTag.setString("ArenaName", arenaName);
+
+	@Override
+	public void writeToNBT(NBTTagCompound tag)
+	{
+		super.writeToNBT(tag);
+		tag.setString("ArenaName", arenaName);
+	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound tag)
+	{
+		super.readFromNBT(tag);
+		arenaName = tag.getString("ArenaName");
 	}
 	
-	public void readFromNBT(NBTTagCompound NBTTag){
-		super.readFromNBT(NBTTag);
-		arenaName = NBTTag.getString("ArenaName");
-	}
-	
-	public void startBattle(){
+	public void startBattle()
+	{
 		ArenaRegistry.createArena(arenaName).startBattle();
 	}
 
