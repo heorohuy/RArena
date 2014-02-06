@@ -35,6 +35,7 @@ public class ArenaData
 		{
 			battleData = new BattleData(this);
 			battleData.start();
+			battleInProgress = true;
 			return true;
 		}
 		return false;
@@ -47,6 +48,12 @@ public class ArenaData
 		{
 			spawnerPositions.add(position);
 		}
+	}
+	
+	public ArrayList<Point4D> getSpawnerPositions()
+	{
+		// Clone the list as a precaution against external changes - defensive programming style
+		return (ArrayList<Point4D>) spawnerPositions.clone();
 	}
 	
 }

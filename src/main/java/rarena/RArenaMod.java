@@ -5,6 +5,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatMessageComponent;
 import net.minecraftforge.common.MinecraftForge;
+import rarena.ticking.CommonTickHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -16,6 +17,8 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.common.registry.TickRegistry;
+import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid = "RArena", name = "RArena", version = "0.1")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
@@ -25,6 +28,9 @@ public class RArenaMod {
 	//Blocks
 	public static Block BlockArenaSpawner;
 	public static Block BlockArenaStarter;
+	
+	//Scheduling
+	public static CommonTickHandler scheduler;
 
 	@Instance("RArenaMod")
 	public static RArenaMod instance;
@@ -42,6 +48,10 @@ public class RArenaMod {
 	@EventHandler
 	public void onInitialization(FMLInitializationEvent event)
 	{
+		scheduler = new CommonTickHandler();
+		//TickRegistry.registerTickHandler(new ClientTickHandler(), Side.CLIENT);
+		TickRegistry.registerTickHandler(scheduler, Side.SERVER);
+		
 		//renderers
 		proxy.registerRenderers();	
 		
