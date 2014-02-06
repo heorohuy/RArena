@@ -7,19 +7,18 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import rarena.tileentities.TileEntityArenaSpawner;
 
-public class BlockArenaSpawner extends Block implements ITileEntityProvider{
-
-	public BlockArenaSpawner(int blockID, Material material) {
+public class BlockArenaSpawner extends Block implements ITileEntityProvider
+{
+	
+	public BlockArenaSpawner(int blockID, Material material)
+	{
 		super(blockID, material);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world) {
-		// TODO Auto-generated method stub
+	public TileEntity createNewTileEntity(World world)
+	{
 		return new TileEntityArenaSpawner();
 	}
 	
-	
-
 }

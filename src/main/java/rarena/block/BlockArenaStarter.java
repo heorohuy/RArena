@@ -9,15 +9,14 @@ import rarena.tileentities.TileEntityArenaStarter;
 
 public class BlockArenaStarter extends Block implements ITileEntityProvider{
 	
-	public BlockArenaStarter(int blockID, Material material) {
+	public BlockArenaStarter(int blockID, Material material)
+	{
 		super(blockID, material);
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
-    public void onNeighborBlockChange(World world, int x, int y, int z, int neighborBlockID){
-    	
-		x = x;
+    public void onNeighborBlockChange(World world, int x, int y, int z, int neighborBlockID)
+    {
         if (world.isBlockIndirectlyGettingPowered(x, y, z))
         {
         	// Start the battle!
@@ -30,8 +29,8 @@ public class BlockArenaStarter extends Block implements ITileEntityProvider{
     }
 
 	@Override
-	public TileEntity createNewTileEntity(World world) {
-		// TODO Auto-generated method stub
+	public TileEntity createNewTileEntity(World world)
+	{
 		return new TileEntityArenaStarter();
 	}
 

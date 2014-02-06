@@ -4,18 +4,21 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import rarena.ArenaRegistry;
 
-public class TileEntityArenaSpawner extends TileEntity{
+public class TileEntityArenaSpawner extends TileEntity
+{
 	
 	private String arenaName = "testy";
 	
-	public void writeToNBT(NBTTagCompound NBTTag){
-		super.writeToNBT(NBTTag);
-		NBTTag.setString("ArenaName", arenaName);
+	public void writeToNBT(NBTTagCompound tag)
+	{
+		super.writeToNBT(tag);
+		tag.setString("ArenaName", arenaName);
 	}
 	
-	public void readFromNBT(NBTTagCompound NBTTag){
-		super.readFromNBT(NBTTag);
-		arenaName = NBTTag.getString("ArenaName");
+	public void readFromNBT(NBTTagCompound tag)
+	{
+		super.readFromNBT(tag);
+		arenaName = tag.getString("ArenaName");
 		ArenaRegistry.createArena(arenaName).registerSpawner(xCoord, yCoord, zCoord, worldObj.provider.dimensionId);
 	}
 
