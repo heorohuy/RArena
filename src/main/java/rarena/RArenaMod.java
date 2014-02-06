@@ -17,7 +17,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.event.FMLServerAboutToStartEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
@@ -80,10 +80,10 @@ public class RArenaMod {
 	}
 	
 	@EventHandler
-	public void onFMLServerStartingEvent(FMLServerStartingEvent event)
+	public void onServerAboutToStart(FMLServerAboutToStartEvent event)
 	{
 		// Reset all our registries - in case the user enters and exits single player worlds
-		ArenaRegistry.reset();
+		ArenaRegistry.clear();
 	}
 
 	public static void sendChat(EntityPlayer player, String message)

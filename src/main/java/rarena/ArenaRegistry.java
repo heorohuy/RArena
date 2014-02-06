@@ -21,7 +21,7 @@ public class ArenaRegistry {
 		}
 	}
 	
-	public static void reset()
+	public static void clear()
 	{
 		arenas.clear();
 	}

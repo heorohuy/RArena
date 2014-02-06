@@ -7,7 +7,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import rarena.tileentities.TileEntityArenaStarter;
 
-public class BlockArenaStarter extends Block implements ITileEntityProvider{
+public class BlockArenaStarter extends Block implements ITileEntityProvider
+{
 	
 	public BlockArenaStarter(int blockID, Material material)
 	{
@@ -21,7 +22,8 @@ public class BlockArenaStarter extends Block implements ITileEntityProvider{
         {
         	// Start the battle!
         	TileEntity entity = world.getBlockTileEntity(x, y, z);
-        	if(entity != null && entity instanceof TileEntityArenaStarter){
+        	if (entity != null && entity instanceof TileEntityArenaStarter)
+        	{
         		((TileEntityArenaStarter)entity).startBattle();
         	}
         }
