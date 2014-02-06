@@ -5,7 +5,11 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatMessageComponent;
 import net.minecraftforge.common.MinecraftForge;
+import rarena.block.BlockArenaSpawner;
+import rarena.block.BlockArenaStarter;
 import rarena.ticking.CommonTickHandler;
+import rarena.tileentities.TileEntityArenaSpawner;
+import rarena.tileentities.TileEntityArenaStarter;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -56,14 +60,17 @@ public class RArenaMod {
 		proxy.registerRenderers();	
 		
 		//Block
-		BlockArenaSpawner = (new Block(4000, Material.rock)).setBlockUnbreakable().setResistance(6000000.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("blockArenaSpawner").setCreativeTab(CreativeTabs.tabBlock).setTextureName("lapis_block");
-		BlockArenaStarter = (new Block(4001, Material.rock)).setBlockUnbreakable().setResistance(6000000.0F).setStepSound(new CustomStepSound("mob.chicken.say", 1.0F, 1.0F)).setUnlocalizedName("blockArenaStarter").setCreativeTab(CreativeTabs.tabBlock).setTextureName("emerald_block");
+		BlockArenaSpawner = (new BlockArenaSpawner(4000, Material.rock)).setBlockUnbreakable().setResistance(6000000.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("blockArenaSpawner").setCreativeTab(CreativeTabs.tabBlock).setTextureName("lapis_block");
+		BlockArenaStarter = (new BlockArenaStarter(4001, Material.rock)).setBlockUnbreakable().setResistance(6000000.0F).setStepSound(new CustomStepSound("mob.chicken.say", 1.0F, 1.0F)).setUnlocalizedName("blockArenaStarter").setCreativeTab(CreativeTabs.tabBlock).setTextureName("emerald_block");
 		
 		GameRegistry.registerBlock(BlockArenaSpawner,"Arena Spawner");
 		GameRegistry.registerBlock(BlockArenaStarter,"Arena Starter");
 
 		LanguageRegistry.addName(BlockArenaSpawner,"Arena Spawner");
 		LanguageRegistry.addName(BlockArenaStarter,"Arena Starter");
+		
+		GameRegistry.registerTileEntity(TileEntityArenaSpawner.class, "TileEntityArenaSpawner");
+		GameRegistry.registerTileEntity(TileEntityArenaStarter.class, "TileEntityArenaStarter");
 	}
 
 	@EventHandler
