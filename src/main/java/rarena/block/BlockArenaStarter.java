@@ -5,6 +5,7 @@ import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import rarena.tileentities.TileEntityArenaStarter;
 
 public class BlockArenaStarter extends Block implements ITileEntityProvider{
 	
@@ -15,8 +16,13 @@ public class BlockArenaStarter extends Block implements ITileEntityProvider{
 	
     public void onNeighborBlockChange(World world, int x, int y, int z, int neighborBlockID){
     	
-        if(world.isBlockIndirectlyGettingPowered(x, y, z)){
-        	//TODO Start the RArena.
+        if (world.isBlockIndirectlyGettingPowered(x, y, z))
+        {
+        	// Start the battle!
+        	TileEntity entity = world.getBlockTileEntity(x, y, z);
+        	if(entity != null && entity instanceof TileEntityArenaStarter){
+        		((TileEntityArenaStarter)entity).startBattle();
+        	}
         }
 
     }
@@ -24,7 +30,7 @@ public class BlockArenaStarter extends Block implements ITileEntityProvider{
 	@Override
 	public TileEntity createNewTileEntity(World world) {
 		// TODO Auto-generated method stub
-		return null;
+		return new TileEntityArenaStarter();
 	}
 
 }
