@@ -34,7 +34,7 @@ public class RArenaMod {
 	public static Block BlockArenaStarter;
 	
 	//Scheduling
-	public static CommonTickHandler scheduler;
+	public static CommonTickHandler Scheduler;
 
 	@Instance("RArenaMod")
 	public static RArenaMod instance;
@@ -52,9 +52,9 @@ public class RArenaMod {
 	@EventHandler
 	public void onInitialization(FMLInitializationEvent event)
 	{
-		scheduler = new CommonTickHandler();
+		Scheduler = new CommonTickHandler();
 		//TickRegistry.registerTickHandler(new ClientTickHandler(), Side.CLIENT);
-		TickRegistry.registerTickHandler(scheduler, Side.SERVER);
+		TickRegistry.registerTickHandler(Scheduler, Side.SERVER);
 		
 		//renderers
 		proxy.registerRenderers();	

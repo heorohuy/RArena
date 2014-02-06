@@ -14,8 +14,10 @@ public class BlockArenaStarter extends Block implements ITileEntityProvider{
 		// TODO Auto-generated constructor stub
 	}
 	
+	@Override
     public void onNeighborBlockChange(World world, int x, int y, int z, int neighborBlockID){
     	
+		x = x;
         if (world.isBlockIndirectlyGettingPowered(x, y, z))
         {
         	// Start the battle!

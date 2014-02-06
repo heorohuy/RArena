@@ -85,7 +85,7 @@ public class BattleData
 	private void endWave()
 	{
 		// Schedule the start of the next wave
-		RArenaMod.scheduler.scheduleCallback(new StartWaveCallback(this), WAVE_PAUSE * TICKS_PER_SECOND);
+		RArenaMod.Scheduler.scheduleCallback(new StartWaveCallback(this), WAVE_PAUSE * TICKS_PER_SECOND);
 		
 		// TODO: We should send a message to all participants or to all players
 		// indicating that the wave has ended
