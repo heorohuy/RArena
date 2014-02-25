@@ -2,11 +2,10 @@ package rarena;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.EventPriority;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
 
 public class EventHookContainer
 {
@@ -29,6 +28,14 @@ public class EventHookContainer
 				EntityMob monster = (EntityMob) entity;
 				ArenaRegistry.onMonsterDeath(monster);
 			}
+			if (entity instanceof EntityPlayer)
+			{
+				// Check if the mob belongs to any battles
+				EntityPlayer player = (EntityPlayer) entity;
+				ArenaRegistry.onPlayerDeath(player);
+				event.setCanceled(true);
+			}
+			
 		}
 		
 		return true;

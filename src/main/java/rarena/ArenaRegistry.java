@@ -3,6 +3,8 @@ package rarena;
 import java.util.HashMap;
 
 import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.player.EntityPlayer;
+import rarena.util.Point4D;
 
 public class ArenaRegistry {
 
@@ -17,6 +19,19 @@ public class ArenaRegistry {
 			if (arena.isBattleInProgress())
 			{
 				arena.getBattleData().onMonsterDeath(monster);
+			}
+		}
+	}
+	
+	public static void onPlayerDeath(EntityPlayer player)
+	{
+		Point4D deathPoint;
+		for (ArenaData arena : arenas.values())
+		{
+			if (arena.isBattleInProgress())
+			{
+				deathPoint = arena.getDeathPoint();
+				arena.onPlayerDeath(player, deathPoint.X, deathPoint.Y, deathPoint.Z, deathPoint.Dimension);
 			}
 		}
 	}

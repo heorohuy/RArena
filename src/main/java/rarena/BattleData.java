@@ -7,6 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -62,6 +63,8 @@ public class BattleData
 		}
 		return false;
 	}
+	
+
 	
 	public void start()
 	{
