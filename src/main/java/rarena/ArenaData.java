@@ -22,7 +22,7 @@ public class ArenaData
 		this.battleInProgress = false;
 		this.spawnerPositions = new ArrayList<Point4D>();
 		this.battleData = null;
-		this. registeredPlayers = new ArrayList<String>();
+		this.registeredPlayers = new ArrayList<String>();
 		this.deathPoint = null;
 	}
 
@@ -65,13 +65,15 @@ public class ArenaData
 		}
 	}
 
-	public boolean registerPlayer(String name){
-		if(!registeredPlayers.contains(name)){
-			
-			return registeredPlayers.add(name);
+	public boolean registerPlayer(EntityPlayer player){
+		if(!registeredPlayers.contains(player.getDisplayName())){
+			return registeredPlayers.add(player.getDisplayName());
 		}
-		
+
 		return false;
+	}
+	public ArrayList<String> getRegisteredPlayers(){
+		return (ArrayList<String>)registeredPlayers.clone();
 	}
 
 	public ArrayList<Point4D> getSpawnerPositions()
@@ -90,8 +92,16 @@ public class ArenaData
 			player.extinguish();
 			player.clearActivePotions();
 			player.setHealth(player.getMaxHealth());
-			Teleport.teleportPlayerTo((EntityPlayerMP) player, deathPoint);
+			if(player instanceof EntityPlayerMP){
+				Teleport.teleportPlayerTo((EntityPlayerMP) player, deathPoint);
+			}
+			//battleData.addDeadPlayer(player.getDisplayName());
+			registeredPlayers.remove(player.getDisplayName());
 			
+			if(battleData.hasBattleEnded()){
+				battleData.endBattle();
+			}
+
 			return true;
 		}
 		return false;
