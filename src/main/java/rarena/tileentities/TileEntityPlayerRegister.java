@@ -1,8 +1,8 @@
 package rarena.tileentities;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import rarena.ArenaData;
 import rarena.ArenaRegistry;
 
 public class TileEntityPlayerRegister extends TileEntity
@@ -24,8 +24,8 @@ public class TileEntityPlayerRegister extends TileEntity
 		arenaName = tag.getString("ArenaName");
 	}
 	
-	public boolean registerPlayer(String name){
-		return ArenaRegistry.createArena(arenaName).registerPlayer(name);
+	public boolean registerPlayer(EntityPlayer player){
+		return ArenaRegistry.createArena(arenaName).registerPlayer(player);
 	}
 
 }

@@ -16,19 +16,19 @@ public class BlockPlayerRegister extends Block implements ITileEntityProvider{
 	}
 	
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int hitSide, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int hitSide, float hitX, float hitY, float hitZ)
     {
 		
 		TileEntity entity = world.getBlockTileEntity(x, y, z);
-		String added = "Player " + entityPlayer.getEntityName() + " is now registered.";
-		String notAdded = "Player "+ entityPlayer.getEntityName() +" already registered.";
+		String added = "Player " + player.getEntityName() + " is now registered.";
+		String notAdded = "Player "+ player.getEntityName() +" already registered.";
     	if (entity != null && entity instanceof TileEntityPlayerRegister)
     	{
-    		if(((TileEntityPlayerRegister)entity).registerPlayer(entityPlayer.getEntityName())){
-    			RArenaMod.sendChat(entityPlayer,added);
+    		if(((TileEntityPlayerRegister)entity).registerPlayer(player)){
+    			RArenaMod.sendChat(player,added);
     			return true;
     		}
-    		RArenaMod.sendChat(entityPlayer,notAdded);
+    		RArenaMod.sendChat(player,notAdded);
     	}
         return false;
     }
