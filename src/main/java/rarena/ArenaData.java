@@ -87,7 +87,7 @@ public class ArenaData
 
 	}
 
-	public boolean onPlayerDeath(EntityPlayer player, Point4D deathPoint){
+	public boolean onPlayerDeath(EntityPlayer player){
 		if(registeredPlayers.contains(player.getEntityName())){
 			player.extinguish();
 			player.clearActivePotions();
@@ -101,6 +101,10 @@ public class ArenaData
 			if(battleData.hasBattleEnded()){
 				battleData.endBattle();
 			}
+			if(registeredPlayers.isEmpty()){
+				battleData.setEnded(true);
+			}
+
 
 			return true;
 		}

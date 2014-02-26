@@ -1,5 +1,4 @@
 package rarena;
-//THIS IS A TEST
 
 import java.awt.List;
 import java.util.ArrayList;
@@ -133,12 +132,11 @@ public class BattleData
 	}
 
 	public boolean hasBattleEnded(){
-		if(owner.getRegisteredPlayers().isEmpty()){
-			ended = true;
-			return ended;
-		}
-
 		return ended;
+	}
+	
+	public void setEnded(boolean end){
+		this.ended = end;
 	}
 
 	public void endBattle(){
@@ -150,7 +148,6 @@ public class BattleData
 				for(int j = 0; j < mobs.size(); j++){
 					if(mobs.get(j).equals(monsters.get(i))){
 						((EntityMob)mobs.get(j)).setDead();
-
 					}
 					//world.getLoadedEntityList();
 					//world.getEntityByID(monsters.get(i));
