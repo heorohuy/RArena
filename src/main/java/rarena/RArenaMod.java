@@ -7,6 +7,7 @@ import net.minecraft.util.ChatMessageComponent;
 import net.minecraftforge.common.MinecraftForge;
 import rarena.block.BlockArenaSpawner;
 import rarena.block.BlockArenaStarter;
+import rarena.block.BlockDeathPoint;
 import rarena.block.BlockPlayerRegister;
 import rarena.ticking.CommonTickHandler;
 import rarena.tileentities.TileEntityArenaSpawner;
@@ -33,10 +34,10 @@ import cpw.mods.fml.relauncher.Side;
 public class RArenaMod {
 	
 	//Blocks
-	public static Block BlockArenaSpawner;
-	public static Block BlockArenaStarter;
-	public static Block BlockPlayerRegister;
-	public static Block BlockDeathPoint;
+	public static BlockArenaSpawner BlockArenaSpawner;
+	public static BlockArenaStarter BlockArenaStarter;
+	public static BlockPlayerRegister BlockPlayerRegister;
+	public static BlockDeathPoint BlockDeathPoint;
 	
 	//Scheduling
 	public static CommonTickHandler Scheduler;
@@ -65,10 +66,10 @@ public class RArenaMod {
 		proxy.registerRenderers();	
 		
 		//Block
-		BlockArenaSpawner = (new BlockArenaSpawner(4000, Material.rock)).setBlockUnbreakable().setResistance(6000000.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("blockArenaSpawner").setCreativeTab(CreativeTabs.tabBlock).setTextureName("lapis_block");
-		BlockArenaStarter = (new BlockArenaStarter(4001, Material.rock)).setBlockUnbreakable().setResistance(6000000.0F).setStepSound(new CustomStepSound("mob.chicken.say", 1.0F, 1.0F)).setUnlocalizedName("blockArenaStarter").setCreativeTab(CreativeTabs.tabBlock).setTextureName("emerald_block");
-		BlockPlayerRegister = (new BlockPlayerRegister(4000, Material.rock)).setBlockUnbreakable().setResistance(6000000.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("blockPlayerRegister").setCreativeTab(CreativeTabs.tabBlock).setTextureName("diamond_block");
-		BlockDeathPoint = (new BlockPlayerRegister(4000, Material.rock)).setBlockUnbreakable().setResistance(6000000.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("blockDeathPoint").setCreativeTab(CreativeTabs.tabBlock).setTextureName("soul_sand");
+		BlockArenaSpawner = (rarena.block.BlockArenaSpawner) (new BlockArenaSpawner(4000, Material.rock)).setBlockUnbreakable().setResistance(6000000.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("blockArenaSpawner").setCreativeTab(CreativeTabs.tabBlock).setTextureName("lapis_block");
+		BlockArenaStarter = (rarena.block.BlockArenaStarter) (new BlockArenaStarter(4001, Material.rock)).setBlockUnbreakable().setResistance(6000000.0F).setStepSound(new CustomStepSound("mob.chicken.say", 1.0F, 1.0F)).setUnlocalizedName("blockArenaStarter").setCreativeTab(CreativeTabs.tabBlock).setTextureName("emerald_block");
+		BlockPlayerRegister = (rarena.block.BlockPlayerRegister) (new BlockPlayerRegister(4002, Material.rock)).setBlockUnbreakable().setResistance(6000000.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("blockPlayerRegister").setCreativeTab(CreativeTabs.tabBlock).setTextureName("diamond_block");
+		BlockDeathPoint = (rarena.block.BlockDeathPoint) (new BlockDeathPoint(4003, Material.rock)).setBlockUnbreakable().setResistance(6000000.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("blockDeathPoint").setCreativeTab(CreativeTabs.tabBlock).setTextureName("soul_sand");
 		
 		GameRegistry.registerBlock(BlockArenaSpawner,"Arena Spawner");
 		GameRegistry.registerBlock(BlockArenaStarter,"Arena Starter");

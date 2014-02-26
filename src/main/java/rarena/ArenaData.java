@@ -3,7 +3,9 @@ package rarena;
 import java.util.ArrayList;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import rarena.util.Point4D;
+import rarena.util.Teleport;
 
 public class ArenaData
 {
@@ -64,7 +66,12 @@ public class ArenaData
 	}
 
 	public boolean registerPlayer(String name){
-		return registeredPlayers.add(name);
+		if(!registeredPlayers.contains(name)){
+			
+			return registeredPlayers.add(name);
+		}
+		
+		return false;
 	}
 
 	public ArrayList<Point4D> getSpawnerPositions()
@@ -78,14 +85,13 @@ public class ArenaData
 
 	}
 
-	public boolean onPlayerDeath(EntityPlayer player, int x, int y, int z, int dimension){
+	public boolean onPlayerDeath(EntityPlayer player, Point4D deathPoint){
 		if(registeredPlayers.contains(player.getEntityName())){
 			player.extinguish();
 			player.clearActivePotions();
 			player.setHealth(player.getMaxHealth());
-			player.setPosition(x, y+1, z);
-			player.travelToDimension(dimension);
-
+			Teleport.teleportPlayerTo((EntityPlayerMP) player, deathPoint);
+			
 			return true;
 		}
 		return false;
