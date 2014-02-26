@@ -31,7 +31,7 @@ public class ArenaRegistry {
 			if (arena.isBattleInProgress())
 			{
 				deathPoint = arena.getDeathPoint();
-				arena.onPlayerDeath(player, deathPoint.X, deathPoint.Y, deathPoint.Z, deathPoint.Dimension);
+				arena.onPlayerDeath(player, deathPoint);
 			}
 		}
 	}
