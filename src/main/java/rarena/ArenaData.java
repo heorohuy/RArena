@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import rarena.util.Point4D;
-import rarena.util.Teleport;
+import rarena.util.Teleporter;
 
 public class ArenaData
 {
@@ -92,7 +92,7 @@ public class ArenaData
 			player.setHealth(player.getMaxHealth());
 			if (player instanceof EntityPlayerMP)
 			{
-				Teleport.teleportPlayerTo((EntityPlayerMP) player, deathPoint);
+				Teleporter.teleportPlayerTo((EntityPlayerMP) player, deathPoint);
 			}
 			registeredPlayers.remove(player.getDisplayName());
 			
