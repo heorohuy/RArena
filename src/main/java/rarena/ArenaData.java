@@ -28,7 +28,7 @@ public class ArenaData
 
 	public boolean isBattleInProgress()
 	{
-		return (battleData == null || battleData.hasEnded());
+		return (battleData != null && !battleData.hasEnded());
 	}
 
 	public BattleData getBattleData()
