@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.management.ServerConfigurationManager;
 import rarena.util.Point4D;
 import rarena.util.Teleporter;
 
@@ -67,7 +69,7 @@ public class ArenaData
 		}
 		return false;
 	}
-	
+
 	public ArrayList<String> getRegisteredPlayers()
 	{
 		return (ArrayList<String>) registeredPlayers.clone();
@@ -95,22 +97,27 @@ public class ArenaData
 				Teleporter.teleportPlayerTo((EntityPlayerMP) player, deathPoint);
 			}
 			registeredPlayers.remove(player.getDisplayName());
-			
+
 			if (registeredPlayers.isEmpty())
 			{
 				battleData.end();
 			}
-			
+
 			return true;
 		}
 		return false;
 	}
-	
-	public void broadcastMessage(String message) {
-		/*
-		for(EntityPlayer player : this.registeredplayers){
-			RArenaMod.sendChat(player, message);
+
+	public void broadcastMessage(String message){
+
+		MinecraftServer server = MinecraftServer.getServer();
+		ServerConfigurationManager manager = server.getServerConfigurationManager(server);
+
+		for(String name : registeredPlayers){
+			EntityPlayer player = manager.getPlayerForUsername(name);
+			if(player.getDisplayName().equals(name)){
+				RArenaMod.sendChat(player, message);
+			}
 		}
-		*/
 	}
 }
