@@ -57,23 +57,23 @@ public class ArenaData
 		}
 	}
 
-	public void registerDeathPoint(int x, int y, int z, int dimension){
-		Point4D position = new Point4D(x, y, z, dimension);
-		if (deathPoint == null)
-		{
-			deathPoint = position;
-		}
+	public void registerDeathPoint(int x, int y, int z, int dimension)
+	{
+		deathPoint = new Point4D(x, y, z, dimension);
 	}
 
-	public boolean registerPlayer(EntityPlayer player){
-		if(!registeredPlayers.contains(player.getDisplayName())){
+	public boolean registerPlayer(EntityPlayer player)
+	{
+		if (!registeredPlayers.contains(player.getDisplayName()))
+		{
 			return registeredPlayers.add(player.getDisplayName());
 		}
-
 		return false;
 	}
-	public ArrayList<String> getRegisteredPlayers(){
-		return (ArrayList<String>)registeredPlayers.clone();
+	
+	public ArrayList<String> getRegisteredPlayers()
+	{
+		return (ArrayList<String>) registeredPlayers.clone();
 	}
 
 	public ArrayList<Point4D> getSpawnerPositions()
@@ -84,7 +84,6 @@ public class ArenaData
 
 	public Point4D getDeathPoint() {
 		return deathPoint;
-
 	}
 
 	public boolean onPlayerDeath(EntityPlayer player)
@@ -110,10 +109,11 @@ public class ArenaData
 		return false;
 	}
 	
-	public void broadcastMessage(String message){
+	public void broadcastMessage(String message) {
+		/*
 		for(EntityPlayer player : this.registeredplayers){
 			RArenaMod.sendChat(player, message);
 		}
+		*/
 	}
-
 }
