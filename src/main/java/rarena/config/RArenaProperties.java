@@ -1,4 +1,4 @@
-package rarena;
+package rarena.config;
 
 import java.io.File;
 
