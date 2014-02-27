@@ -10,7 +10,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.WorldServer;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class Teleport {
+public class Teleporter {
 
 	public static void teleportPlayerTo(EntityPlayerMP player, Point4D coord)
 	{

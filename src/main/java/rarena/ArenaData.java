@@ -7,12 +7,11 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.ServerConfigurationManager;
 import rarena.util.Point4D;
-import rarena.util.Teleport;
+import rarena.util.Teleporter;
 
 public class ArenaData
 {
 	private final String arenaName;
-	private boolean battleInProgress;
 	private BattleData battleData;
 	private ArrayList<Point4D> spawnerPositions;
 	private ArrayList<String> registeredPlayers;
@@ -21,16 +20,15 @@ public class ArenaData
 	public ArenaData(String arenaName)
 	{
 		this.arenaName = arenaName;
-		this.battleInProgress = false;
 		this.spawnerPositions = new ArrayList<Point4D>();
-		this.battleData = null;
 		this.registeredPlayers = new ArrayList<String>();
+		this.battleData = null;
 		this.deathPoint = null;
 	}
 
 	public boolean isBattleInProgress()
 	{
-		return battleInProgress;
+		return (battleData == null || battleData.hasEnded());
 	}
 
 	public BattleData getBattleData()
@@ -40,11 +38,10 @@ public class ArenaData
 
 	public boolean startBattle()
 	{
-		if (!battleInProgress && !spawnerPositions.isEmpty())
+		if (!this.isBattleInProgress() && !spawnerPositions.isEmpty())
 		{
 			battleData = new BattleData(this);
 			battleData.start();
-			battleInProgress = true;
 			return true;
 		}
 		return false;
@@ -59,23 +56,23 @@ public class ArenaData
 		}
 	}
 
-	public void registerDeathPoint(int x, int y, int z, int dimension){
-		Point4D position = new Point4D(x, y, z, dimension);
-		if (deathPoint == null)
-		{
-			deathPoint = position;
-		}
+	public void registerDeathPoint(int x, int y, int z, int dimension)
+	{
+		deathPoint = new Point4D(x, y, z, dimension);
 	}
 
-	public boolean registerPlayer(EntityPlayer player){
-		if(!registeredPlayers.contains(player.getDisplayName())){
+	public boolean registerPlayer(EntityPlayer player)
+	{
+		if (!registeredPlayers.contains(player.getDisplayName()))
+		{
 			return registeredPlayers.add(player.getDisplayName());
 		}
-
 		return false;
 	}
-	public ArrayList<String> getRegisteredPlayers(){
-		return (ArrayList<String>)registeredPlayers.clone();
+
+	public ArrayList<String> getRegisteredPlayers()
+	{
+		return (ArrayList<String>) registeredPlayers.clone();
 	}
 
 	public ArrayList<Point4D> getSpawnerPositions()
@@ -86,7 +83,6 @@ public class ArenaData
 
 	public Point4D getDeathPoint() {
 		return deathPoint;
-
 	}
 
 	public boolean onPlayerDeath(EntityPlayer player)
@@ -98,7 +94,7 @@ public class ArenaData
 			player.setHealth(player.getMaxHealth());
 			if (player instanceof EntityPlayerMP)
 			{
-				Teleport.teleportPlayerTo((EntityPlayerMP) player, deathPoint);
+				Teleporter.teleportPlayerTo((EntityPlayerMP) player, deathPoint);
 			}
 			registeredPlayers.remove(player.getDisplayName());
 
@@ -114,15 +110,14 @@ public class ArenaData
 
 	public void broadcastMessage(String message){
 
-		MinecraftServer server = MinecraftServer.getServer();//(MinecraftServer.getServer()).getPlayerForUsername(name);
+		MinecraftServer server = MinecraftServer.getServer();
 		ServerConfigurationManager manager = server.getServerConfigurationManager(server);
 
-		for(String name : registeredPlayers){//this.registeredplayers){
+		for(String name : registeredPlayers){
 			EntityPlayer player = manager.getPlayerForUsername(name);
 			if(player.getDisplayName().equals(name)){
 				RArenaMod.sendChat(player, message);
 			}
 		}
 	}
-
 }
