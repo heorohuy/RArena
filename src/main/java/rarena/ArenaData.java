@@ -15,7 +15,7 @@ public class ArenaData
 	private BattleData battleData;
 	private ArrayList<Point4D> spawnerPositions;
 	private ArrayList<String> registeredPlayers;
-	private Point4D deathPoint;
+	private Point4D spawnPoint;
 
 	public ArenaData(String arenaName)
 	{
@@ -23,7 +23,7 @@ public class ArenaData
 		this.spawnerPositions = new ArrayList<Point4D>();
 		this.registeredPlayers = new ArrayList<String>();
 		this.battleData = null;
-		this.deathPoint = null;
+		this.spawnPoint = null;
 	}
 
 	public boolean isBattleInProgress()
@@ -56,9 +56,9 @@ public class ArenaData
 		}
 	}
 
-	public void registerDeathPoint(int x, int y, int z, int dimension)
+	public void registerSpawnPoint(int x, int y, int z, int dimension)
 	{
-		deathPoint = new Point4D(x, y, z, dimension);
+		spawnPoint = new Point4D(x, y, z, dimension);
 	}
 
 	public boolean registerPlayer(EntityPlayer player)
@@ -81,8 +81,8 @@ public class ArenaData
 		return (ArrayList<Point4D>) spawnerPositions.clone();
 	}
 
-	public Point4D getDeathPoint() {
-		return deathPoint;
+	public Point4D getSpawnPoint() {
+		return spawnPoint;
 	}
 
 	public boolean onPlayerDeath(EntityPlayer player)
@@ -94,7 +94,7 @@ public class ArenaData
 			player.setHealth(player.getMaxHealth());
 			if (player instanceof EntityPlayerMP)
 			{
-				Teleporter.teleportPlayerTo((EntityPlayerMP) player, deathPoint);
+				Teleporter.teleportPlayerTo((EntityPlayerMP) player, spawnPoint);
 			}
 			registeredPlayers.remove(player.getDisplayName());
 

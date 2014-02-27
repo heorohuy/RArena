@@ -5,17 +5,17 @@ import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import rarena.tileentities.TileEntityDeathPoint;
+import rarena.tileentities.TileEntitySpawnPoint;
 
-public class BlockDeathPoint extends Block implements ITileEntityProvider{
+public class BlockSpawnPoint extends Block implements ITileEntityProvider{
 
-	public BlockDeathPoint(int blockID, Material material) {
+	public BlockSpawnPoint(int blockID, Material material) {
 		super(blockID, material);
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World world) {
-		return new TileEntityDeathPoint();
+		return new TileEntitySpawnPoint();
 	}
 
 }

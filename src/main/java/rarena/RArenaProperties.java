@@ -10,7 +10,7 @@ public class RArenaProperties {
 	public final int BlockArenaSpawnerID;
 	public final int BlockArenaStarterID;
 	public final int BlockPlayerRegisterID;
-	public final int BlockDeathPointID;
+	public final int BlockSpawnPointID;
 	
 	
 	//Singleton instance
@@ -27,7 +27,7 @@ public class RArenaProperties {
 		BlockArenaSpawnerID = config.getBlock("Arena Spawner Block ID", 4000).getInt();
 		BlockArenaStarterID = config.getBlock("Arena Starter Block ID", 4001).getInt();
 		BlockPlayerRegisterID = config.getBlock("Arena Player Register Block ID", 4002).getInt();
-		BlockDeathPointID = config.getBlock("Arena Death Point Block ID", 4003).getInt();
+		BlockSpawnPointID = config.getBlock("Arena Spawn Point Block ID", 4003).getInt();
 		
 		config.save();
 	}

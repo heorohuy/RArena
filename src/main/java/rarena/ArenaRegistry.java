@@ -25,12 +25,12 @@ public class ArenaRegistry {
 	
 	public static void onPlayerDeath(EntityPlayer player)
 	{
-		Point4D deathPoint;
+		Point4D spawnPoint;
 		for (ArenaData arena : arenas.values())
 		{
 			if (arena.isBattleInProgress())
 			{
-				deathPoint = arena.getDeathPoint();
+				spawnPoint = arena.getSpawnPoint();
 				arena.onPlayerDeath(player);
 			}
 		}

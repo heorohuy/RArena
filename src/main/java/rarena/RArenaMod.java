@@ -7,12 +7,12 @@ import net.minecraft.util.ChatMessageComponent;
 import net.minecraftforge.common.MinecraftForge;
 import rarena.block.BlockArenaSpawner;
 import rarena.block.BlockArenaStarter;
-import rarena.block.BlockDeathPoint;
+import rarena.block.BlockSpawnPoint;
 import rarena.block.BlockPlayerRegister;
 import rarena.ticking.CommonTickHandler;
 import rarena.tileentities.TileEntityArenaSpawner;
 import rarena.tileentities.TileEntityArenaStarter;
-import rarena.tileentities.TileEntityDeathPoint;
+import rarena.tileentities.TileEntitySpawnPoint;
 import rarena.tileentities.TileEntityPlayerRegister;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -37,7 +37,7 @@ public class RArenaMod {
 	public static BlockArenaSpawner BlockArenaSpawner;
 	public static BlockArenaStarter BlockArenaStarter;
 	public static BlockPlayerRegister BlockPlayerRegister;
-	public static BlockDeathPoint BlockDeathPoint;
+	public static BlockSpawnPoint BlockSpawnPoint;
 	
 	//Scheduling
 	public static CommonTickHandler Scheduler;
@@ -66,25 +66,25 @@ public class RArenaMod {
 		proxy.registerRenderers();	
 		
 		//Block
-		BlockArenaSpawner = (rarena.block.BlockArenaSpawner) (new BlockArenaSpawner(4000, Material.rock)).setBlockUnbreakable().setResistance(6000000.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("blockArenaSpawner").setCreativeTab(CreativeTabs.tabBlock).setTextureName("lapis_block");
-		BlockArenaStarter = (rarena.block.BlockArenaStarter) (new BlockArenaStarter(4001, Material.rock)).setBlockUnbreakable().setResistance(6000000.0F).setStepSound(new CustomStepSound("mob.chicken.say", 1.0F, 1.0F)).setUnlocalizedName("blockArenaStarter").setCreativeTab(CreativeTabs.tabBlock).setTextureName("emerald_block");
-		BlockPlayerRegister = (rarena.block.BlockPlayerRegister) (new BlockPlayerRegister(4002, Material.rock)).setBlockUnbreakable().setResistance(6000000.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("blockPlayerRegister").setCreativeTab(CreativeTabs.tabBlock).setTextureName("diamond_block");
-		BlockDeathPoint = (rarena.block.BlockDeathPoint) (new BlockDeathPoint(4003, Material.rock)).setBlockUnbreakable().setResistance(6000000.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("blockDeathPoint").setCreativeTab(CreativeTabs.tabBlock).setTextureName("soul_sand");
+		BlockArenaSpawner = (BlockArenaSpawner) (new BlockArenaSpawner(4000, Material.rock)).setBlockUnbreakable().setResistance(6000000.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("blockArenaSpawner").setCreativeTab(CreativeTabs.tabBlock).setTextureName("lapis_block");
+		BlockArenaStarter = (BlockArenaStarter) (new BlockArenaStarter(4001, Material.rock)).setBlockUnbreakable().setResistance(6000000.0F).setStepSound(new CustomStepSound("mob.chicken.say", 1.0F, 1.0F)).setUnlocalizedName("blockArenaStarter").setCreativeTab(CreativeTabs.tabBlock).setTextureName("emerald_block");
+		BlockPlayerRegister = (BlockPlayerRegister) (new BlockPlayerRegister(4002, Material.rock)).setBlockUnbreakable().setResistance(6000000.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("blockPlayerRegister").setCreativeTab(CreativeTabs.tabBlock).setTextureName("diamond_block");
+		BlockSpawnPoint = (BlockSpawnPoint) (new BlockSpawnPoint(4003, Material.rock)).setBlockUnbreakable().setResistance(6000000.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("blockSpawnPoint").setCreativeTab(CreativeTabs.tabBlock).setTextureName("soul_sand");
 		
 		GameRegistry.registerBlock(BlockArenaSpawner,"Arena Spawner");
 		GameRegistry.registerBlock(BlockArenaStarter,"Arena Starter");
-		GameRegistry.registerBlock(BlockPlayerRegister, "Player Register");
-		GameRegistry.registerBlock(BlockDeathPoint, "Arena Death Point");
+		GameRegistry.registerBlock(BlockPlayerRegister, "Arena Player Register");
+		GameRegistry.registerBlock(BlockSpawnPoint, "Arena Spawn Point");
 
 		LanguageRegistry.addName(BlockArenaSpawner,"Arena Spawner");
 		LanguageRegistry.addName(BlockArenaStarter,"Arena Starter");
-		LanguageRegistry.addName(BlockPlayerRegister, "Player Register");
-		LanguageRegistry.addName(BlockDeathPoint, "Arena Death Point");
+		LanguageRegistry.addName(BlockPlayerRegister, "Arena Player Register");
+		LanguageRegistry.addName(BlockSpawnPoint, "Arena Spawn Point");
 		
 		GameRegistry.registerTileEntity(TileEntityArenaSpawner.class, "TileEntityArenaSpawner");
 		GameRegistry.registerTileEntity(TileEntityArenaStarter.class, "TileEntityArenaStarter");
 		GameRegistry.registerTileEntity(TileEntityPlayerRegister.class, "TileEntityPlayerRegister");
-		GameRegistry.registerTileEntity(TileEntityDeathPoint.class, "TileEntityDeathPoint");
+		GameRegistry.registerTileEntity(TileEntitySpawnPoint.class, "TileEntitySpawnPoint");
 	}
 
 	@EventHandler

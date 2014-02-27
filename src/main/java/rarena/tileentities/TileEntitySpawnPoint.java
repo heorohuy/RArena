@@ -4,7 +4,7 @@ import rarena.ArenaRegistry;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
-public class TileEntityDeathPoint extends TileEntity{
+public class TileEntitySpawnPoint extends TileEntity{
 	
 	private String arenaName = "testy";
 	private boolean registered = false;
@@ -26,7 +26,7 @@ public class TileEntityDeathPoint extends TileEntity{
 	@Override
 	public void updateEntity()
 	{
-		ArenaRegistry.createArena(arenaName).registerDeathPoint(xCoord, yCoord, zCoord, worldObj.provider.dimensionId);		
+		ArenaRegistry.createArena(arenaName).registerSpawnPoint(xCoord, yCoord, zCoord, worldObj.provider.dimensionId);		
 		registered = true;
 	}
 	
