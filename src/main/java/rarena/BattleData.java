@@ -1,13 +1,13 @@
 package rarena;
 
-import java.awt.List;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.UUID;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.EntityList;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityZombie;
@@ -43,23 +43,23 @@ public class BattleData
 	private final ArenaData owner;
 	private int waveCount;	// The number of waves completed
 	private int killCount;	// The total number of mobs killed
-	private ArrayList<UUID> monsters;
-	private ArrayList<String> deadPlayers;
+	private int maxWaves;	// The number of waves to be completed
+
 	private boolean ended;
-	private int maxWaves;
+	private HashMap<UUID, WeakReference<EntityMob>> monsters;
 
 	public BattleData(ArenaData owner)
 	{
 		this.owner = owner;
-		this.monsters = new ArrayList<UUID>();
 		this.waveCount = 0;
 		this.killCount = 0;
-		ended = false;
+		this.ended = false;
+		this.monsters = new HashMap<UUID, WeakReference<EntityMob>>();
 	}
 
 	public boolean onMonsterDeath(EntityMob monster)
 	{
-		if (monsters.remove((Integer) monster.entityId))
+		if (monsters.remove(monster.getPersistentID()) != null)
 		{
 			killCount++;
 			if (monsters.isEmpty())
@@ -70,11 +70,7 @@ public class BattleData
 		}
 		return false;
 	}
-
-	public void addDeadPlayer(String name){
-		deadPlayers.add(name);
-	}
-
+	
 	public void start()
 	{
 		startWave();
@@ -83,6 +79,7 @@ public class BattleData
 	private void startWave()
 	{
 		EntityMob monster;
+		owner.broadcastMessage("Wave " + (waveCount + 1) + " begins!");
 
 		// Spawn mobs
 		for (Point4D position : owner.getSpawnerPositions())
@@ -109,52 +106,60 @@ public class BattleData
 			monster.setPosition(position.X + 0.5, position.Y + 1, position.Z + 0.5);
 			world.spawnEntityInWorld(monster);
 
-			monsters.add(monster.getUniqueID());
+			monsters.put(monster.getUniqueID(), new WeakReference(monster));
 		}
 	}
 
 	private void endWave()
 	{
-		// Schedule the start of the next wave
-		// TODO: Consider doing this through the starter tile entity instead - that would let us
-		// write the state of the battle to NBT tags
-		RArenaMod.Scheduler.scheduleCallback(new StartWaveCallback(this), WAVE_PAUSE * TICKS_PER_SECOND);
-
-		// TODO: We should send a message to all participants or to all players
-		// indicating that the wave has ended
-
-		if(waveCount >= maxWaves){
-			ended = true;
-		}else{
-			waveCount++;
+		waveCount++;
+		
+		// Send a message to all participants indicating that the wave has ended
+		owner.broadcastMessage("Wave " + waveCount + " completed!");
+		
+		if (waveCount >= maxWaves)
+		{
+			this.end();
 		}
-
+		else
+		{
+			// Schedule the start of the next wave
+			// TODO: Consider doing this through the starter tile entity instead - that would let us
+			// write the state of the battle to NBT tags
+			RArenaMod.Scheduler.scheduleCallback(new StartWaveCallback(this), WAVE_PAUSE * TICKS_PER_SECOND);
+		}
 	}
 
-	public boolean hasBattleEnded(){
+	public boolean hasEnded()
+	{
 		return ended;
 	}
-	
-	public void setEnded(boolean end){
-		this.ended = end;
-	}
 
-	public void endBattle(){
-		if(hasBattleEnded()){
-			World world = Minecraft.getMinecraft().theWorld;
-			EntityMob monster;
-			java.util.List mobs = world.getLoadedEntityList();
-			for (int i = 0; i < monsters.size(); i++){
-				for(int j = 0; j < mobs.size(); j++){
-					if(mobs.get(j).equals(monsters.get(i))){
-						((EntityMob)mobs.get(j)).setDead();
-					}
-					//world.getLoadedEntityList();
-					//world.getEntityByID(monsters.get(i));
-					//monster = (EntityMob) EntityList.createEntityByName(monsters.get(i),world);
-
+	public void end()
+	{
+		if (!ended)
+		{
+			// Despawn all the monsters that we spawned before
+			for (WeakReference<EntityMob> mobReference : monsters.values())
+			{
+				EntityMob monster = mobReference.get();
+				if (monster != null)
+				{
+					monster.setDead();
 				}
 			}
+			monsters.clear();
+			ended = true;
 		}
+	}
+
+	public boolean onMonsterLoaded(EntityMob monster)
+	{
+		if (monsters.containsKey(monster.getPersistentID()))
+		{
+			monsters.put(monster.getPersistentID(), new WeakReference(monster));
+			return true;
+		}
+		return false;
 	}
 }

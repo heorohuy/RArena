@@ -35,6 +35,17 @@ public class ArenaRegistry {
 			}
 		}
 	}
+
+	public static void onMonsterLoaded(EntityMob monster)
+	{
+		for (ArenaData arena : arenas.values())
+		{
+			if (arena.isBattleInProgress())
+			{
+				arena.getBattleData().onMonsterLoaded(monster);
+			}
+		}
+	}
 	
 	public static void clear()
 	{

@@ -87,25 +87,24 @@ public class ArenaData
 
 	}
 
-	public boolean onPlayerDeath(EntityPlayer player){
-		if(registeredPlayers.contains(player.getEntityName())){
+	public boolean onPlayerDeath(EntityPlayer player)
+	{
+		if (registeredPlayers.contains(player.getDisplayName()))
+		{
 			player.extinguish();
 			player.clearActivePotions();
 			player.setHealth(player.getMaxHealth());
-			if(player instanceof EntityPlayerMP){
+			if (player instanceof EntityPlayerMP)
+			{
 				Teleport.teleportPlayerTo((EntityPlayerMP) player, deathPoint);
 			}
-			//battleData.addDeadPlayer(player.getDisplayName());
 			registeredPlayers.remove(player.getDisplayName());
 			
-			if(battleData.hasBattleEnded()){
-				battleData.endBattle();
+			if (registeredPlayers.isEmpty())
+			{
+				battleData.end();
 			}
-			if(registeredPlayers.isEmpty()){
-				battleData.setEnded(true);
-			}
-
-
+			
 			return true;
 		}
 		return false;
