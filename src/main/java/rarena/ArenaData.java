@@ -108,14 +108,13 @@ public class ArenaData
 		return false;
 	}
 
-	public void broadcastMessage(String message){
-
+	public void broadcastMessage(String message) {
 		MinecraftServer server = MinecraftServer.getServer();
 		ServerConfigurationManager manager = server.getServerConfigurationManager(server);
 
-		for(String name : registeredPlayers){
+		for (String name : registeredPlayers) {
 			EntityPlayer player = manager.getPlayerForUsername(name);
-			if(player.getDisplayName().equals(name)){
+			if (player != null) {
 				RArenaMod.sendChat(player, message);
 			}
 		}

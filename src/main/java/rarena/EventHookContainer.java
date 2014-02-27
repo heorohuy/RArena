@@ -46,11 +46,15 @@ public class EventHookContainer
 	@ForgeSubscribe
 	public boolean onEntityJoinWorldEvent(EntityJoinWorldEvent event)
 	{
-		if (event.entity instanceof EntityMob)
+		// Only run this code on the server
+		if (!event.world.isRemote)
 		{
-			// Check if mob belongs to any battles
-			EntityMob monster = (EntityMob) event.entity;
-			ArenaRegistry.onMonsterLoaded(monster);
+			if (event.entity instanceof EntityMob)
+			{
+				// Check if mob belongs to any battles
+				EntityMob monster = (EntityMob) event.entity;
+				ArenaRegistry.onMonsterLoaded(monster);
+			}
 		}
 		return true;
 	}
