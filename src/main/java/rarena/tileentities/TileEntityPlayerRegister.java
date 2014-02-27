@@ -3,6 +3,7 @@ package rarena.tileentities;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import rarena.ArenaData;
 import rarena.ArenaRegistry;
 
 public class TileEntityPlayerRegister extends TileEntity
@@ -25,7 +26,9 @@ public class TileEntityPlayerRegister extends TileEntity
 	}
 	
 	public boolean registerPlayer(EntityPlayer player){
-		return ArenaRegistry.createArena(arenaName).registerPlayer(player);
+		ArenaData arena = ArenaRegistry.createArena(arenaName);
+		arena.broadcastMessage(player.getDisplayName() + " has joined the arena.");
+		return arena.registerPlayer(player);
 	}
 
 }
