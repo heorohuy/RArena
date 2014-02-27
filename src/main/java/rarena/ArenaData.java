@@ -10,7 +10,6 @@ import rarena.util.Teleport;
 public class ArenaData
 {
 	private final String arenaName;
-	private boolean battleInProgress;
 	private BattleData battleData;
 	private ArrayList<Point4D> spawnerPositions;
 	private ArrayList<String> registeredPlayers;
@@ -19,16 +18,15 @@ public class ArenaData
 	public ArenaData(String arenaName)
 	{
 		this.arenaName = arenaName;
-		this.battleInProgress = false;
 		this.spawnerPositions = new ArrayList<Point4D>();
-		this.battleData = null;
 		this.registeredPlayers = new ArrayList<String>();
+		this.battleData = null;
 		this.deathPoint = null;
 	}
 
 	public boolean isBattleInProgress()
 	{
-		return battleInProgress;
+		return (battleData == null || battleData.hasEnded());
 	}
 
 	public BattleData getBattleData()
@@ -38,11 +36,10 @@ public class ArenaData
 
 	public boolean startBattle()
 	{
-		if (!battleInProgress && !spawnerPositions.isEmpty())
+		if (!this.isBattleInProgress() && !spawnerPositions.isEmpty())
 		{
 			battleData = new BattleData(this);
 			battleData.start();
-			battleInProgress = true;
 			return true;
 		}
 		return false;
