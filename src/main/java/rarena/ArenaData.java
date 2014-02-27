@@ -65,6 +65,7 @@ public class ArenaData
 	{
 		if (!registeredPlayers.contains(player.getDisplayName()))
 		{
+			this.broadcastMessage(player.getDisplayName() + " has joined the arena.");
 			return registeredPlayers.add(player.getDisplayName());
 		}
 		return false;
@@ -89,6 +90,7 @@ public class ArenaData
 	{
 		if (registeredPlayers.contains(player.getDisplayName()))
 		{
+			this.broadcastMessage(player.getDisplayName() + " has been slain.");
 			player.extinguish();
 			player.clearActivePotions();
 			player.setHealth(player.getMaxHealth());

@@ -26,9 +26,7 @@ public class TileEntityPlayerRegister extends TileEntity
 	}
 	
 	public boolean registerPlayer(EntityPlayer player){
-		ArenaData arena = ArenaRegistry.createArena(arenaName);
-		arena.broadcastMessage(player.getDisplayName() + " has joined the arena.");
-		return arena.registerPlayer(player);
+		return ArenaRegistry.createArena(arenaName).registerPlayer(player);
 	}
 
 }
