@@ -31,5 +31,26 @@ public class RArenaProperties {
 		
 		config.save();
 	}
+	
+	public static RArenaProperties initialize(File configFile)
+	{
+		if (instance == null)
+			instance = new RArenaProperties(configFile);
+		else
+			throw new IllegalStateException("Cannot initialize DDProperties twice");
+
+		return instance;
+	}
+
+	public static RArenaProperties instance()
+	{
+		if (instance == null)
+		{
+			//This is to prevent some frustrating bugs that could arise when classes
+			//are loaded in the wrong order.
+			throw new IllegalStateException("Instance of DDProperties requested before initialization");
+		}
+		return instance;
+	}
 
 }
