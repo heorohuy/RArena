@@ -65,8 +65,9 @@ public class ArenaData
 	{
 		if (!registeredPlayers.contains(player.getDisplayName()))
 		{
+			registeredPlayers.add(player.getDisplayName());
 			this.broadcastMessage(player.getDisplayName() + " has joined the arena.");
-			return registeredPlayers.add(player.getDisplayName());
+			return true;
 		}
 		return false;
 	}
