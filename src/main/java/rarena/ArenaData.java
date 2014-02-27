@@ -109,5 +109,11 @@ public class ArenaData
 		}
 		return false;
 	}
+	
+	public void broadcastMessage(String message){
+		for(EntityPlayer player : this.registeredplayers){
+			RArenaMod.sendChat(player, message);
+		}
+	}
 
 }
